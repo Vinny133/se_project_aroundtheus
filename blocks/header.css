@@ -1,16 +1,27 @@
-h2 {
-    margin: 0;
-  }
-  
 .header {
-    padding-top: 40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgb(84 84 84 / 0.7);
+}
+
+.header__line {
+  max-width: 880px;
+  width: 100%;
+  margin-top: 41px;
+  margin-bottom: 0;
+  opacity: 0.7;
+  border: 1px solid #545454;
+}
+
+@media screen and (max-width: 770px) {
+  .header__logo {
+    width: 126px;
+    height: 24px;
   }
-  
-  .header__line {
-    max-width: 880px;
-    width: 100%;
-    margin-top: 41px;
-    margin-bottom: 0;
-    opacity: 0.7;
-    border: 1px solid #545454;
+}
+
+@media screen and (max-width: 919px) {
+  .header {
+    padding: 0 0 40px;
   }
+}
