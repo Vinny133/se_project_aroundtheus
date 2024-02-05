@@ -25,6 +25,7 @@
 
 .profile__edit-button:hover {
   opacity: 0.6;
+  cursor: pointer;
 }
 
 .profile__add-button {
@@ -38,6 +39,7 @@
 
 .profile__add-button:hover {
   opacity: 0.6;
+  cursor: pointer;
 }
 
 .profile__title {
@@ -101,6 +103,7 @@
   }
   .profile__title {
     font-size: 22px;
+    max-width: 230px;
   }
   .profile__description {
     width: 100%;
