@@ -66,6 +66,7 @@
   background-color: black;
   color: #fff;
   transition: opacity 0.2s linear;
+  cursor: pointer;
 }
 
 .modal__button:hover {
