@@ -39,74 +39,7 @@
           <button class="profile__add-button" type="button"></button>
         </section>
         <section class="cards page__section">
-          <ul class="cards__list">
-            <!-- <li class="card">
-              <img
-                src="./images/yosemite-valley-2.png"
-                alt="lake louise"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__name">Yosemite Valley</h2>
-                <button class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./images/lake-louise-2.jpg"
-                alt="lake louise"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__name">Lake louise</h2>
-                <button class="card__like-button" type="button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./images/bald-mountains-2.png"
-                alt="lake louise"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__name">Bald Mountains</h2>
-                <button class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./images/latemar-2.png"
-                alt="latemar"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__name">Latemar</h2>
-                <button class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./images/vanoise-national-park-2.png"
-                alt="vanoise national park"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__name">Vanoise National Park</h2>
-                <button class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./images/lago-di-braies-2.png"
-                alt="lago di braies"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__name">Lago di Braies</h2>
-                <button class="card__like-button"></button>
-              </div>
-            </li> -->
-          </ul>
+          <ul class="cards__list"></ul>
         </section>
       </main>
       <footer class="footer page__section">
@@ -115,6 +48,7 @@
         </div>
       </footer>
     </div>
+    <!-- Edit Modal -->
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
         <button class="modal__close" id="profile-modal-close"></button>
@@ -124,18 +58,50 @@
             type="text"
             name="title"
             id="profile-title-input"
-            class="modal__input"
+            class="modal__input modal__input_type_name"
             placeholder="Name"
           />
           <input
             type="text"
             name="description"
             id="profile-description-input"
-            class="modal__input"
+            class="modal__input modal__input_type_description"
             placeholder="Description"
           />
           <button class="modal__button">Save</button>
         </form>
+      </div>
+    </div>
+    <!-- Add Card Modal -->
+    <div class="modal" id="add-card-modal">
+      <div class="modal__container">
+        <button class="modal__close" id="add-card-modal-close"></button>
+        <p class="modal__heading">New Place</p>
+        <form class="modal__form">
+          <input
+            type="text"
+            name="title"
+            id="add-place-title-input"
+            class="modal__input modal__input_type_title"
+            placeholder="Title"
+          />
+          <input
+            type="text"
+            name="url"
+            id="add-place-url-input"
+            class="modal__input modal__input_type_url"
+            placeholder="Image URL"
+          />
+          <button class="modal__button">Save</button>
+        </form>
+      </div>
+    </div>
+    <!-- Preview Image Modal -->
+    <div class="modal" id="preview-image-modal">
+      <div class="modal__preview-image">
+        <button class="modal__preview-close" id="preview-modal-close"></button>
+        <img src="" alt="" class="card__preview-image" />
+        <p class="modal__preview-name"></p>
       </div>
     </div>
     <template id="card-template">
@@ -145,6 +111,7 @@
           <h2 class="card__name"></h2>
           <button class="card__like-button"></button>
         </div>
+        <button class="card__delete-button"></button>
       </li>
     </template>
     <script src="./scripts/index.js"></script>
