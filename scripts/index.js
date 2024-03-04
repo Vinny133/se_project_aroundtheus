@@ -79,14 +79,16 @@ function getCardElement(cardData) {
     cardElement.remove();
   });
 
-  cardImageEl.addEventListener("click", () => openModal(previewImageModal));
+  cardImageEl.addEventListener("click", () => {
+    openModal(previewImageModal);
+    previewNameEl.textContent = cardData.name;
+    previewImageEl.alt = cardData.name;
+    previewImageEl.src = cardData.link;
+  });
+
   previewModalClose.addEventListener("click", () =>
     closePopUp(previewImageModal)
   );
-
-  previewNameEl.textContent = cardData.name;
-  previewImageEl.alt = cardData.name;
-  previewImageEl.src = cardData.link;
 
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
