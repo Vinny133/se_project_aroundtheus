@@ -99,20 +99,6 @@
   color: #fff;
 }
 
-.modal__preview-close {
-  position: absolute;
-  cursor: pointer;
-  bottom: calc(100% + 7px);
-  left: calc(100% + 7px);
-  width: 40px;
-  height: 40px;
-  background-image: url(../images/Close\ Icon.svg);
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-size: contain;
-  border: none;
-}
-
 .modal__preview-name {
   margin: 10px 0 0;
   font-family: Inter;
@@ -141,7 +127,7 @@
     margin: 0 0 75px;
     font-size: 18px;
   }
-  .modal__preview-close {
+  .modal__close_type_preview {
     width: 30px;
     height: 30px;
     bottom: calc(100% + 5px);
