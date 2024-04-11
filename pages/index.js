@@ -1,3 +1,6 @@
+import Card from "../components/card.js";
+// import FormValidator from "../components/FormValidator";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -24,6 +27,14 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+
+const cardData = {
+  name: "Yosemite Valley",
+  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+};
+
+const card = new Card(cardData, "#card-template");
+card.getView();
 
 // Elements
 
@@ -76,12 +87,10 @@ function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardNameEl = cardElement.querySelector(".card__name");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
+  // const likeButton = cardElement.querySelector(".card__like-button");
+  // const deleteButton = cardElement.querySelector(".card__delete-button");
 
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
+  // deleteButton.addEventListener("click", handleDeleteIcon);
 
   cardImageEl.addEventListener("click", () => {
     openModal(previewImageModal);
@@ -90,9 +99,7 @@ function getCardElement(cardData) {
     previewImageEl.src = cardData.link;
   });
 
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_active");
-  });
+  // likeButton.addEventListener("click", handleLikeIcon);
 
   cardNameEl.textContent = cardData.name;
   cardImageEl.alt = cardData.name;
@@ -127,6 +134,14 @@ const handleEsc = (evt) => {
   evt.preventDefault();
   isEscEvent(evt, closePopUp);
 };
+
+// const handleLikeIcon = (evt) => {
+//   evt.target.classList.toggle("card__like-button_active");
+// };
+
+// const handleDeleteIcon = (evt) => {
+//   evt.target.closest(".card").remove();
+// };
 
 // Event Listeners
 
