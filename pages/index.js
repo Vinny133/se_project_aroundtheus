@@ -63,14 +63,6 @@ const cardUrlInput = addCardForm.querySelector("#add-place-url-input");
 
 const closeButtons = document.querySelectorAll(".modal__close");
 
-const cardData = {
-  name: "Yosemite Valley",
-  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-};
-
-const card = new Card(cardData, "#card-template");
-cardListEl.prepend(card.getView());
-
 // Functions
 
 function closePopUp(modal) {
@@ -108,8 +100,11 @@ function getCardElement(cardData) {
 }
 
 function renderCard(cardData, wrapper) {
-  const cardElement = getCardElement(cardData);
-  wrapper.prepend(cardElement);
+  // const cardElement = getCardElement(cardData);
+  // wrapper.prepend(cardElement);
+
+  const card = new Card(cardData, "#card-template");
+  cardListEl.prepend(card.getView());
 }
 
 // Event Handlers
