@@ -22,7 +22,10 @@ class Card {
     this._cardElement
       .querySelector(".card__image")
       .addEventListener("click", () => {
-        this._handleImageClick();
+        this._handleImageClick({
+          name: this._name,
+          link: this._link,
+        });
       });
   }
 
@@ -50,8 +53,8 @@ class Card {
     cardImage.src = this._link;
     cardImage.alt = this._name;
 
-    const previewCardImage = this._cardElement.querySelector(".card__image");
-    const previewCardName = this._cardElement.querySelector(".card__name");
+    // const previewCardImage = this._cardElement.querySelector(".card__image");
+    // const previewCardName = this._cardElement.querySelector(".card__name");
 
     // previewCardName.textContent = this._name;
     // previewCardImage.src = this._link;
