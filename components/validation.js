@@ -68,6 +68,7 @@ function enableValidation(options) {
     setEventListeners(formElement, options);
   });
 }
+// inputList
 
 const config = {
   formSelector: ".modal__form",
