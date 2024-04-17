@@ -78,12 +78,13 @@ function openModal(modal) {
 }
 
 function renderCard(cardData) {
-  createCard(cardData);
+  const card = createCard(cardData);
+  cardListEl.prepend(card);
 }
 
 function createCard(data) {
-  const card = new Card(data, "#card-template", handleImageClick);
-  cardListEl.prepend(card.getView());
+  const card = new Card(data, "#card-template", handleImageClick).getView();
+  return card;
 }
 
 // Event Handlers
@@ -102,13 +103,6 @@ function handleAddCardSubmit(e) {
   renderCard({ name, link }, cardListEl);
   e.target.reset();
   closePopUp(addCardModal);
-  handleSubmitReset(addCardButton);
-}
-
-function handleSubmitReset(item) {
-  if (handleAddCardSubmit) {
-    item.classList.add("modal__button_disabled");
-  }
 }
 
 const handleEsc = (evt) => {
@@ -168,25 +162,33 @@ const config = {
   errorClass: "modal__error_visible",
 };
 
-const formValidators = {};
+// const formValidators = {};
 
-const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement);
-    // here you get the name of the form
-    const formName = formElement.getAttribute("name");
+// const enableValidation = (config) => {
+//   const formList = Array.from(document.querySelectorAll(config.formSelector));
+//   formList.forEach((formElement) => {
+//     const validator = new FormValidator(config, formElement);
+//     // here you get the name of the form
+//     const formName = formElement.getAttribute("name");
 
-    // here you store the validator using the `name` of the form
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  });
-};
+//     // here you store the validator using the `name` of the form
+//     formValidators[formName] = validator;
+//     validator.enableValidation();
+//   });
+// };
 
-enableValidation(config);
+// enableValidation(config);
 
-// const profileEditValidator = new FormValidator(config, profileEditForm);
-// const addCardValidator = new FormValidator(config, addCardForm);
+const profileEditValidator = new FormValidator(config, profileEditForm);
+const addCardValidator = new FormValidator(config, addCardForm);
 
-// profileEditValidator.enableValidation();
-// addCardValidator.enableValidation();
+profileEditValidator.enableValidation();
+addCardValidator.enableValidation();
+
+function handleProfileSubmit() {
+  profileEditValidator.disableButton();
+}
+
+function handleAddSubmit() {
+  addCardValidator.disableButton();
+}

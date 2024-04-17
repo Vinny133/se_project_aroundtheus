@@ -60,6 +60,10 @@ export default class FormValidator {
     });
   }
 
+  disableButton() {
+    this._submitButton.disabled = true;
+  }
+
   enableValidation() {
     this._form.addEventListener("submit", (e) => {
       e.preventDefault();
