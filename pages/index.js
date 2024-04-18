@@ -101,7 +101,7 @@ function handleAddCardSubmit(e) {
   e.preventDefault();
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
-  renderCard({ name, link }, cardListEl);
+  renderCard({ name, link });
   e.target.reset();
   closePopUp(addCardModal);
   addCardValidator.disableButton();
@@ -186,11 +186,3 @@ const addCardValidator = new FormValidator(config, addCardForm);
 
 profileEditValidator.enableValidation();
 addCardValidator.enableValidation();
-
-function handleProfileSubmit() {
-  profileEditValidator.disableButton();
-}
-
-function handleAddSubmit() {
-  addCardValidator.disableButton();
-}
