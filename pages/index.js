@@ -94,6 +94,7 @@ function handleProfileEditSubmit(e) {
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
   closePopUp(profileEditModal);
+  profileEditValidator.disableButton();
 }
 
 function handleAddCardSubmit(e) {
@@ -103,6 +104,7 @@ function handleAddCardSubmit(e) {
   renderCard({ name, link }, cardListEl);
   e.target.reset();
   closePopUp(addCardModal);
+  addCardValidator.disableButton();
 }
 
 const handleEsc = (evt) => {
