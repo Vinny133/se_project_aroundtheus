@@ -1,5 +1,9 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+
+const previewImageModal = new PopupWithImage("#preview-image-modal");
+previewImageModal.setEventListeners();
 
 const initialCards = [
   {
@@ -33,14 +37,9 @@ const initialCards = [
 const profileEditBtn = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
-const previewImageModal = document.querySelector("#preview-image-modal");
-const profileModalClose = profileEditModal.querySelector(
-  "#profile-modal-close"
-);
+
 const addCardModalClose = addCardModal.querySelector("#add-card-modal-close");
-const previewModalClose = previewImageModal.querySelector(
-  "#preview-modal-close"
-);
+
 const previewImageEl = document.querySelector(".card__preview-image");
 const previewNameEl = document.querySelector(".modal__preview-name");
 const profileTitle = document.querySelector(".profile__title");
@@ -67,15 +66,15 @@ const addCardButton = addCardModal.querySelector("#add-modal-button");
 
 // Functions
 
-function closePopUp(modal) {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("keyup", handleEsc);
-}
+// function closePopUp(modal) {
+//   modal.classList.remove("modal_opened");
+//   document.removeEventListener("keyup", handleEsc);
+// }
 
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keyup", handleEsc);
-}
+// function openModal(modal) {
+//   modal.classList.add("modal_opened");
+//   document.addEventListener("keyup", handleEsc);
+// }
 
 function renderCard(cardData) {
   const card = createCard(cardData);
@@ -107,16 +106,13 @@ function handleAddCardSubmit(e) {
   addCardValidator.disableButton();
 }
 
-const handleEsc = (evt) => {
-  evt.preventDefault();
-  isEscEvent(evt, closePopUp);
-};
+// const handleEsc = (evt) => {
+//   evt.preventDefault();
+//   isEscEvent(evt, closePopUp);
+// };
 
 function handleImageClick(cardData) {
-  openModal(previewImageModal);
-  previewNameEl.textContent = cardData.name;
-  previewImageEl.setAttribute("alt", cardData.name);
-  previewImageEl.setAttribute("src", cardData.link);
+  previewImageModal.open(cardData);
 }
 
 // Event Listeners
@@ -130,25 +126,12 @@ profileEditBtn.addEventListener("click", () => {
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardForm.addEventListener("submit", handleAddCardSubmit);
 
-const modals = document.querySelectorAll(".modal");
-
-modals.forEach((popup) => {
-  popup.addEventListener("mousedown", (evt) => {
-    if (evt.target.classList.contains("modal_opened")) {
-      closePopUp(popup);
-    }
-    if (evt.target.classList.contains("modal__close")) {
-      closePopUp(popup);
-    }
-  });
-});
-
-const isEscEvent = (evt, action) => {
-  if (evt.key === "Escape") {
-    const activeModal = document.querySelector(".modal_opened");
-    action(activeModal);
-  }
-};
+// const isEscEvent = (evt, action) => {
+//   if (evt.key === "Escape") {
+//     const activeModal = document.querySelector(".modal_opened");
+//     action(activeModal);
+//   }
+// };
 
 // Add New Card Button
 addNewCardButton.addEventListener("click", () => openModal(addCardModal));
@@ -163,23 +146,6 @@ const config = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
 };
-
-// const formValidators = {};
-
-// const enableValidation = (config) => {
-//   const formList = Array.from(document.querySelectorAll(config.formSelector));
-//   formList.forEach((formElement) => {
-//     const validator = new FormValidator(config, formElement);
-//     // here you get the name of the form
-//     const formName = formElement.getAttribute("name");
-
-//     // here you store the validator using the `name` of the form
-//     formValidators[formName] = validator;
-//     validator.enableValidation();
-//   });
-// };
-
-// enableValidation(config);
 
 const profileEditValidator = new FormValidator(config, profileEditForm);
 const addCardValidator = new FormValidator(config, addCardForm);

@@ -53,13 +53,6 @@ class Card {
     cardImage.src = this._link;
     cardImage.alt = this._name;
 
-    // const previewCardImage = this._cardElement.querySelector(".card__image");
-    // const previewCardName = this._cardElement.querySelector(".card__name");
-
-    // previewCardName.textContent = this._name;
-    // previewCardImage.src = this._link;
-    // previewCardImage.alt = this._name;
-
     this._setEventListeners();
 
     return this._cardElement;
