@@ -53,10 +53,10 @@
       <div class="modal__container">
         <button class="modal__close" id="profile-modal-close"></button>
         <p class="modal__heading">Edit Profile</p>
-        <form class="modal__form">
+        <form class="modal__form" id="profile-edit-form">
           <input
             type="text"
-            name="title"
+            name="name"
             id="profile-title-input"
             class="modal__input modal__input_type_name"
             placeholder="Name"
@@ -91,7 +91,7 @@
         <form class="modal__form" id="add-card-form">
           <input
             type="text"
-            name="title"
+            name="name"
             id="add-place-title-input"
             class="modal__input modal__input_type_title"
             placeholder="Title"
@@ -102,7 +102,7 @@
           <span class="modal__error" id="add-place-title-input-error"></span>
           <input
             type="url"
-            name="url"
+            name="link"
             id="add-place-url-input"
             class="modal__input modal__input_type_url"
             placeholder="Image URL"

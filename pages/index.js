@@ -8,11 +8,14 @@ const cardListEl = document.querySelector(".cards__list");
 const previewImageModal = new PopupWithImage("#preview-image-modal");
 previewImageModal.setEventListeners();
 
-const addCardModal = new PopupWithForm(
-  "#add-card-modal",
-  handleAddCardSubmit()
-);
+const addCardModal = new PopupWithForm("#add-card-modal", handleAddCardSubmit);
 addCardModal.setEventListeners();
+
+const profileEditModal = new PopupWithForm(
+  "#profile-edit-modal",
+  handleProfileEditSubmit
+);
+profileEditModal.setEventListeners();
 
 const initialCards = [
   {
@@ -44,14 +47,14 @@ const initialCards = [
 // Elements
 
 const profileEditBtn = document.querySelector("#profile-edit-button");
-const profileEditModal = document.querySelector("#profile-edit-modal");
+// const profileEditModal = document.querySelector("#profile-edit-modal");
 
 const previewImageEl = document.querySelector(".card__preview-image");
 const previewNameEl = document.querySelector(".modal__preview-name");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 
-const profileEditForm = profileEditModal.querySelector(".modal__form");
+const profileEditForm = document.querySelector("#profile-edit-form");
 // const addCardModal = document.querySelector("#add-card-modal");
 const addCardForm = document.querySelector("#add-card-form");
 
@@ -78,18 +81,17 @@ function createCard(data) {
 
 // Event Handlers
 
-function handleProfileEditSubmit(e) {
-  e.preventDefault();
+function handleProfileEditSubmit(inputValues) {
+  console.log(inputValues);
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
-  closePopUp(profileEditModal);
+  profileEditModal.close();
   profileEditValidator.disableButton();
 }
 
 function handleAddCardSubmit(inputValues) {
   console.log(inputValues);
-  renderCard({ inputValues });
-  // e.target.reset();
+  renderCard(inputValues);
   addCardModal.close();
   addCardValidator.disableButton();
 }
@@ -103,18 +105,8 @@ function handleImageClick(cardData) {
 profileEditBtn.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
-  openModal(profileEditModal);
+  profileEditModal.open();
 });
-
-// profileEditForm.addEventListener("submit", handleProfileEditSubmit);
-// addCardForm.addEventListener("submit", handleAddCardSubmit);
-
-// const isEscEvent = (evt, action) => {
-//   if (evt.key === "Escape") {
-//     const activeModal = document.querySelector(".modal_opened");
-//     action(activeModal);
-//   }
-// };
 
 // Add New Card Button
 addNewCardButton.addEventListener("click", () => addCardModal.open());
