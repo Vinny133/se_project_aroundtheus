@@ -47,7 +47,6 @@ const initialCards = [
 // Elements
 
 const profileEditBtn = document.querySelector("#profile-edit-button");
-// const profileEditModal = document.querySelector("#profile-edit-modal");
 
 const previewImageEl = document.querySelector(".card__preview-image");
 const previewNameEl = document.querySelector(".modal__preview-name");
@@ -55,7 +54,6 @@ const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 
 const profileEditForm = document.querySelector("#profile-edit-form");
-// const addCardModal = document.querySelector("#add-card-modal");
 const addCardForm = document.querySelector("#add-card-form");
 
 const cardTemplate =
