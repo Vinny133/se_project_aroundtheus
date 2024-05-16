@@ -1,5 +1,3 @@
-import Popup from "../components/Popup.js";
-
 export const initialCards = [
   {
     name: "Yosemite Valley",
@@ -67,8 +65,3 @@ export const cardUrlInput = addCardForm.querySelector("#add-place-url-input");
 export const closeButtons = document.querySelectorAll(".modal__close");
 
 export const addCardButton = addCardModal.querySelector("#add-modal-button");
-
-// export const modals = document.querySelectorAll(".modal");
-// export const popupInstances = Array.from(modals).map(
-//   (modal) => new Popup(modal)
-// );
