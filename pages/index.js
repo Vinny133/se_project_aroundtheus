@@ -2,6 +2,8 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import Section from "../components/Section.js";
+import UserInfo from "../components/UserInfo.js";
 
 const cardListEl = document.querySelector(".cards__list");
 
@@ -44,6 +46,17 @@ const initialCards = [
   },
 ];
 
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: renderCard,
+  },
+  "#card-template"
+);
+
+section.renderItems();
+section.addItems();
+
 // Elements
 
 const profileEditBtn = document.querySelector("#profile-edit-button");
@@ -70,6 +83,14 @@ const cardUrlInput = addCardForm.querySelector("#add-place-url-input");
 
 const closeButtons = document.querySelectorAll(".modal__close");
 
+const userInfo = new UserInfo(".profile__title", ".profile__description");
+userInfo.getUserInfo();
+
+const currentUserData = {
+  name: profileTitle.textContent,
+  job: profileDescription.textContent,
+};
+
 // Functions
 
 function createCard(data) {
@@ -81,8 +102,7 @@ function createCard(data) {
 
 function handleProfileEditSubmit(inputValues) {
   console.log(inputValues);
-  profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
+  userInfo.setUserInfo(currentUserData);
   profileEditModal.close();
   profileEditValidator.disableButton();
 }
@@ -101,15 +121,13 @@ function handleImageClick(cardData) {
 // Event Listeners
 
 profileEditBtn.addEventListener("click", () => {
-  profileTitleInput.value = profileTitle.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
+  profileTitleInput.value = currentUserData.name;
+  profileDescriptionInput.value = currentUserData.job;
   profileEditModal.open();
 });
 
 // Add New Card Button
 addNewCardButton.addEventListener("click", () => addCardModal.open());
-
-initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
 
 function renderCard(cardData) {
   const card = createCard(cardData);
