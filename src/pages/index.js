@@ -14,6 +14,7 @@ import {
   profileTitleInput,
   profileDescriptionInput,
 } from "../utils/constants.js";
+import "./index.css";
 
 // Class Instances
 

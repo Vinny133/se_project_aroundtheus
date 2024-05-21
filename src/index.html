@@ -8,14 +8,13 @@
     />
     <meta content="ie=edge" http-equiv="X-UA-compatible" />
     <title>Around the U.S</title>
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
 
   <body class="page">
     <div class="page__content">
       <header class="header page__section">
         <img
-          src="./images/Vector.svg"
+          src="<%=require('./images/Vector.svg')%>"
           alt="Around the U.S. logo"
           class="header__logo"
         />
@@ -23,7 +22,7 @@
       <main class="content">
         <section class="profile page__section">
           <img
-            src="./images/jacques-cousteau.jpg"
+            src="<%=require('./images/jacques-cousteau.jpg')%>"
             alt="Avatar"
             class="profile__image"
           />
@@ -140,6 +139,5 @@
         <button class="card__delete-button"></button>
       </li>
     </template>
-    <script src="./pages/index.js" type="module"></script>
   </body>
 </html>
