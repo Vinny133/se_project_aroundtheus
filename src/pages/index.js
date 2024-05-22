@@ -13,6 +13,7 @@ import {
   addNewCardButton,
   profileTitleInput,
   profileDescriptionInput,
+  config,
 } from "../utils/constants.js";
 import "./index.css";
 
@@ -35,11 +36,10 @@ const section = new Section(
     items: initialCards,
     renderer: renderCard,
   },
-  "#card-template"
+  ".cards__list"
 );
 
 section.renderItems();
-section.addItems();
 
 const userInfo = new UserInfo(".profile__title", ".profile__description");
 
@@ -85,17 +85,25 @@ addNewCardButton.addEventListener("click", () => addCardModal.open());
 
 function renderCard(cardData) {
   const card = createCard(cardData);
-  cardListEl.prepend(card);
+  section.addItems(card);
 }
 
-const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};
+// const formValidators = {};
+
+// const enableValidation = (config) => {
+//   const formList = Array.from(document.querySelectorAll(config.formSelector));
+//   formList.forEach((formElement) => {
+//     const validator = new FormValidator(config, formElement);
+//     // here you get the name of the form (if you don’t have it then you need to add it into each form in `index.html` first)
+//     const formName = formElement.getAttribute("name");
+
+//     // here you store the validator using the `name` of the form
+//     formValidators[formName] = validator;
+//     validator.enableValidation();
+//   });
+// };
+
+// enableValidation(config);
 
 const profileEditValidator = new FormValidator(config, profileEditForm);
 const addCardValidator = new FormValidator(config, addCardForm);

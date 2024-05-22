@@ -65,3 +65,12 @@ export const cardUrlInput = addCardForm.querySelector("#add-place-url-input");
 export const closeButtons = document.querySelectorAll(".modal__close");
 
 export const addCardButton = addCardModal.querySelector("#add-modal-button");
+
+export const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
