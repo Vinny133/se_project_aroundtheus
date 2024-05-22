@@ -44,7 +44,6 @@ class Card {
     );
     this._cardImage = this._cardElement.querySelector(".card__image");
 
-    const cardImage = this._cardElement.querySelector(".card__image");
     const cardName = this._cardElement.querySelector(".card__name");
 
     cardName.textContent = this._name;
