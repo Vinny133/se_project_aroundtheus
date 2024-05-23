@@ -47,8 +47,8 @@ class Card {
     const cardName = this._cardElement.querySelector(".card__name");
 
     cardName.textContent = this._name;
-    cardImage.src = this._link;
-    cardImage.alt = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
 
     this._setEventListeners();
 
