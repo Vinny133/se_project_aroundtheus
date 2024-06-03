@@ -4,6 +4,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/API.js";
 import {
   initialCards,
   cardListEl,
@@ -18,6 +19,29 @@ import {
 import "./index.css";
 
 // Class Instances
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  authToken: "8d021ea1-224c-4669-baf6-53caf4d7734b",
+});
+
+api.getUserInfo().then((res) => {
+  console.log(res);
+});
+
+api.getInitialCards().then((res) => {
+  console.log(res);
+});
+
+// fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
+//   headers: {
+//     authorization: "8d021ea1-224c-4669-baf6-53caf4d7734b",
+//   },
+// })
+//   .then((res) => res.json())
+//   .then((res) => {
+//     console.log(res);
+//   });
 
 const previewImageModal = new PopupWithImage("#preview-image-modal");
 previewImageModal.setEventListeners();
