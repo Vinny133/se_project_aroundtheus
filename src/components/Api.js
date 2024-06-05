@@ -8,6 +8,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: {
         authorization: this._authToken,
+        "Content-Type": "application/json",
       },
     })
       .then((res) =>
@@ -16,6 +17,15 @@ export default class Api {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  updateUserInfo() {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._authToken,
+      },
+    });
   }
 
   getInitialCards() {
@@ -30,5 +40,19 @@ export default class Api {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  createCard({ name, link }) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: {
+        authorization: this._authToken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        link,
+      }),
+    });
   }
 }

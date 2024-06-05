@@ -12,6 +12,8 @@ import {
   profileEditForm,
   addCardForm,
   addNewCardButton,
+  profileTitle,
+  profileDescription,
   profileTitleInput,
   profileDescriptionInput,
   config,
@@ -20,17 +22,22 @@ import "./index.css";
 
 // Class Instances
 
+let section;
+
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   authToken: "8d021ea1-224c-4669-baf6-53caf4d7734b",
 });
 
-api.getUserInfo().then((res) => {
-  console.log(res);
-});
-
-api.getInitialCards().then((res) => {
-  console.log(res);
+api.getInitialCards().then((cards) => {
+  section = new Section(
+    {
+      items: cards,
+      renderer: renderCard,
+    },
+    ".cards__list"
+  );
+  section.renderItems();
 });
 
 // fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
@@ -55,17 +62,24 @@ const profileEditModal = new PopupWithForm(
 );
 profileEditModal.setEventListeners();
 
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: renderCard,
-  },
-  ".cards__list"
-);
+// const section = new Section(
+//   {
+//     items: initialCards,
+//     renderer: renderCard,
+//   },
+//   ".cards__list"
+// );
 
-section.renderItems();
+// section.renderItems();
 
 const userInfo = new UserInfo(".profile__title", ".profile__description");
+
+api.getUserInfo().then((userData) => {
+  userInfo.setUserInfo({
+    name: userData.name,
+    description: userData.about,
+  });
+});
 
 // Functions
 
