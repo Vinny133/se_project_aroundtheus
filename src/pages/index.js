@@ -93,11 +93,10 @@ function handleProfileEditSubmit(inputValues) {
 }
 
 function handleAddCardSubmit(inputValues) {
-  api.createCard().then((res) => {
+  api.createCard(inputValues).then((res) => {
     renderCard(res);
   });
   console.log(inputValues);
-  // renderCard(inputValues);
   addCardModal.close();
   addCardValidator.disableButton();
 }
