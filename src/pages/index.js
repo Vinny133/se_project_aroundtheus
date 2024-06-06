@@ -83,11 +83,6 @@ api.getUserInfo().then((userData) => {
 
 // Functions
 
-function createCard(data) {
-  const card = new Card(data, "#card-template", handleImageClick).getView();
-  return card;
-}
-
 // Event Handlers
 
 function handleProfileEditSubmit(inputValues) {
@@ -98,8 +93,11 @@ function handleProfileEditSubmit(inputValues) {
 }
 
 function handleAddCardSubmit(inputValues) {
+  api.createCard().then((res) => {
+    renderCard(res);
+  });
   console.log(inputValues);
-  renderCard(inputValues);
+  // renderCard(inputValues);
   addCardModal.close();
   addCardValidator.disableButton();
 }
@@ -120,6 +118,11 @@ profileEditBtn.addEventListener("click", () => {
 
 // Add New Card Button
 addNewCardButton.addEventListener("click", () => addCardModal.open());
+
+function createCard(data) {
+  const card = new Card(data, "#card-template", handleImageClick).getView();
+  return card;
+}
 
 function renderCard(cardData) {
   const card = createCard(cardData);
