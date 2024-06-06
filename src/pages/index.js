@@ -87,7 +87,10 @@ api.getUserInfo().then((userData) => {
 
 function handleProfileEditSubmit(inputValues) {
   console.log(inputValues);
-  userInfo.setUserInfo(inputValues);
+  // userInfo.setUserInfo(inputValues);
+  api.updateUserInfo(inputValues).then((res) => {
+    userInfo.setUserInfo(res);
+  });
   profileEditModal.close();
   profileEditValidator.disableButton();
 }

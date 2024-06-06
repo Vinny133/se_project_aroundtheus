@@ -19,19 +19,30 @@ export default class Api {
       });
   }
 
-  updateUserInfo() {
+  updateUserInfo({ name, about }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: {
         authorization: this._authToken,
       },
-    });
+      body: JSON.stringify({
+        name,
+        about,
+      }),
+    })
+      .then((res) => {
+        res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: {
         authorization: this._authToken,
+        "Content-Type": "application/json",
       },
     })
       .then((res) =>
@@ -53,6 +64,12 @@ export default class Api {
         name,
         link,
       }),
-    });
+    })
+      .then((res) =>
+        res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
+      )
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
