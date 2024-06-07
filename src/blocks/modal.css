@@ -39,6 +39,10 @@
   line-height: normal;
 }
 
+.modal__heading_delete {
+  margin: 0;
+}
+
 .modal__form {
   display: flex;
   flex-direction: column;
@@ -86,6 +90,28 @@
   opacity: 0.8;
   background-color: transparent;
   color: black;
+}
+
+.modal__delete-button {
+  margin: 38px 0 0;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 0;
+  background-color: black;
+  color: #fff;
+  width: 100%;
+  align-items: center;
+  transition: opacity 0.2s linear;
+  cursor: pointer;
+}
+
+.modal__delete-button:hover {
+  opacity: 0.8;
 }
 
 .modal__close {

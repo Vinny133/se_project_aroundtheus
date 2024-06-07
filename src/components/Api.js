@@ -24,15 +24,16 @@ export default class Api {
       method: "PATCH",
       headers: {
         authorization: this._authToken,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name,
         about,
       }),
     })
-      .then((res) => {
-        res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-      })
+      .then((res) =>
+        res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
+      )
       .catch((err) => {
         console.log(err);
       });
@@ -64,6 +65,22 @@ export default class Api {
         name,
         link,
       }),
+    })
+      .then((res) =>
+        res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  deleteCard(cardID) {
+    return fetch(`${this._baseUrl}/cards/${cardID}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._authToken,
+        "Content-Type": "application/json",
+      },
     })
       .then((res) =>
         res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)

@@ -6,7 +6,6 @@ import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import {
-  initialCards,
   cardListEl,
   profileEditBtn,
   profileEditForm,
@@ -17,8 +16,10 @@ import {
   profileTitleInput,
   profileDescriptionInput,
   config,
+  confirmDeleteBtn,
 } from "../utils/constants.js";
 import "./index.css";
+import PopupDelete from "../components/PopupDelete.js";
 
 // Class Instances
 
@@ -62,6 +63,9 @@ const profileEditModal = new PopupWithForm(
 );
 profileEditModal.setEventListeners();
 
+const deleteModal = new PopupDelete("#delete-modal");
+deleteModal.setEventListeners();
+
 // const section = new Section(
 //   {
 //     items: initialCards,
@@ -77,7 +81,7 @@ const userInfo = new UserInfo(".profile__title", ".profile__description");
 api.getUserInfo().then((userData) => {
   userInfo.setUserInfo({
     name: userData.name,
-    description: userData.about,
+    about: userData.about,
   });
 });
 
@@ -108,13 +112,24 @@ function handleImageClick(cardData) {
   previewImageModal.open(cardData);
 }
 
+function handleDeleteCardClick() {
+  deleteModal.open();
+  confirmDeleteBtn.addEventListener(
+    "click",
+    api.deleteCard(card.id).then((card) => {
+      card.handleDeleteCard();
+      deleteModal.close();
+    })
+  );
+}
+
 // Event Listeners
 
 profileEditBtn.addEventListener("click", () => {
   const currentUserData = userInfo.getUserInfo();
   console.log(currentUserData);
   profileTitleInput.value = currentUserData.name;
-  profileDescriptionInput.value = currentUserData.description;
+  profileDescriptionInput.value = currentUserData.about;
   profileEditModal.open();
 });
 
@@ -122,7 +137,12 @@ profileEditBtn.addEventListener("click", () => {
 addNewCardButton.addEventListener("click", () => addCardModal.open());
 
 function createCard(data) {
-  const card = new Card(data, "#card-template", handleImageClick).getView();
+  const card = new Card(
+    data,
+    "#card-template",
+    handleImageClick,
+    handleDeleteCardClick
+  ).getView();
   return card;
 }
 

@@ -66,7 +66,7 @@
           <span class="modal__error" id="profile-title-input-error"></span>
           <input
             type="text"
-            name="description"
+            name="about"
             id="profile-description-input"
             class="modal__input modal__input_type_description"
             placeholder="Description"
@@ -129,6 +129,15 @@
         <p class="modal__preview-name"></p>
       </div>
     </div>
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="delete-modal">
+      <div class="modal__container">
+        <button class="modal__close" id="delete-modal-close"></button>
+        <p class="modal__heading modal__heading_delete">Are you sure?</p>
+        <button class="modal__delete-button">Yes</button>
+      </div>
+    </div>
+    <!-- Card Template -->
     <template id="card-template">
       <li class="card">
         <img src="" alt="" class="card__image" />
