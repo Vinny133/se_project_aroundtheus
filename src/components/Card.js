@@ -14,6 +14,7 @@ class Card {
   }
 
   getId() {
+    console.log(this._id);
     return this._id;
   }
 
@@ -23,7 +24,7 @@ class Card {
     });
 
     this._deleteButton.addEventListener("click", () => {
-      this._handleDeleteCardClick();
+      this._handleDeleteCardClick(this);
     });
 
     this._cardImage.addEventListener("click", () => {

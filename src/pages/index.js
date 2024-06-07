@@ -112,15 +112,18 @@ function handleImageClick(cardData) {
   previewImageModal.open(cardData);
 }
 
-function handleDeleteCardClick() {
+function handleDeleteCardClick(card) {
+  console.log("Card to delete:", card);
   deleteModal.open();
-  confirmDeleteBtn.addEventListener(
-    "click",
-    api.deleteCard(card.id).then((card) => {
+  function handleConfirmDelete() {
+    console.log("Card ID:", card._id);
+    api.deleteCard(card._id).then(() => {
       card.handleDeleteCard();
       deleteModal.close();
-    })
-  );
+      confirmDeleteBtn.removeEventListener("click", handleConfirmDelete);
+    });
+  }
+  confirmDeleteBtn.addEventListener("click", handleConfirmDelete);
 }
 
 // Event Listeners
@@ -137,11 +140,8 @@ profileEditBtn.addEventListener("click", () => {
 addNewCardButton.addEventListener("click", () => addCardModal.open());
 
 function createCard(data) {
-  const card = new Card(
-    data,
-    "#card-template",
-    handleImageClick,
-    handleDeleteCardClick
+  const card = new Card(data, "#card-template", handleImageClick, () =>
+    handleDeleteCardClick(card)
   ).getView();
   return card;
 }
