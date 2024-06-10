@@ -126,6 +126,19 @@ function handleDeleteCardClick(card) {
   confirmDeleteBtn.addEventListener("click", handleConfirmDelete);
 }
 
+function handleLikeClick(card) {
+  if (card.isLiked) {
+    api.unlikeCard(card._id).then(() => {
+      card.handleLikeIcon();
+    });
+  }
+  if (!card.isLiked) {
+    api.likeCard(card._id).then(() => {
+      card.handleLikeIcon();
+    });
+  }
+}
+
 // Event Listeners
 
 profileEditBtn.addEventListener("click", () => {
@@ -144,8 +157,10 @@ function createCard(data) {
     data,
     "#card-template",
     handleImageClick,
-    handleDeleteCardClick
+    handleDeleteCardClick,
+    handleLikeClick
   ).getView();
+  console.log(data);
   return card;
 }
 

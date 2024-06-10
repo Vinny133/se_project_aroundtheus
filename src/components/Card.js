@@ -3,7 +3,8 @@ class Card {
     { name, link, _id },
     cardSelector,
     handleImageClick,
-    handleDeleteCardClick
+    handleDeleteCardClick,
+    handleLikeClick
   ) {
     this._name = name;
     this._link = link;
@@ -11,6 +12,7 @@ class Card {
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._handleDeleteCardClick = handleDeleteCardClick;
+    this._handleLikeClick = handleLikeClick;
   }
 
   getId() {
@@ -20,7 +22,7 @@ class Card {
 
   _setEventListeners() {
     this._likeButton.addEventListener("click", () => {
-      this._handleLikeIcon();
+      this._handleLikeClick(this);
     });
 
     this._deleteButton.addEventListener("click", () => {
@@ -39,7 +41,7 @@ class Card {
     // });
   }
 
-  _handleLikeIcon() {
+  handleLikeIcon() {
     this._likeButton.classList.toggle("card__like-button_active");
   }
 
