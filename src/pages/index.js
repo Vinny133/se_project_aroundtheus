@@ -140,8 +140,11 @@ profileEditBtn.addEventListener("click", () => {
 addNewCardButton.addEventListener("click", () => addCardModal.open());
 
 function createCard(data) {
-  const card = new Card(data, "#card-template", handleImageClick, () =>
-    handleDeleteCardClick(card)
+  const card = new Card(
+    data,
+    "#card-template",
+    handleImageClick,
+    handleDeleteCardClick
   ).getView();
   return card;
 }
