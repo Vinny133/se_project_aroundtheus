@@ -128,14 +128,26 @@ function handleDeleteCardClick(card) {
 
 function handleLikeClick(card) {
   if (card.isLiked) {
-    api.unlikeCard(card._id).then(() => {
-      card.handleLikeIcon();
-    });
+    api
+      .unlikeCard(card._id)
+      .then((newCardData) => {
+        card.isLiked = newCardData.isLiked;
+        card.renderLikes();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   if (!card.isLiked) {
-    api.likeCard(card._id).then(() => {
-      card.handleLikeIcon();
-    });
+    api
+      .likeCard(card._id)
+      .then((newCardData) => {
+        card.isLiked = newCardData.isLiked;
+        card.renderLikes();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
 

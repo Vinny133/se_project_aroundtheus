@@ -1,6 +1,6 @@
 class Card {
   constructor(
-    { name, link, _id },
+    { name, link, _id, isLiked },
     cardSelector,
     handleImageClick,
     handleDeleteCardClick,
@@ -9,15 +9,11 @@ class Card {
     this._name = name;
     this._link = link;
     this._id = _id;
+    this._isLiked = isLiked;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._handleDeleteCardClick = handleDeleteCardClick;
     this._handleLikeClick = handleLikeClick;
-  }
-
-  getId() {
-    console.log(this._id);
-    return this._id;
   }
 
   _setEventListeners() {
@@ -41,9 +37,18 @@ class Card {
     // });
   }
 
-  handleLikeIcon() {
-    this._likeButton.classList.toggle("card__like-button_active");
+  renderLikes() {
+    if (this._isLiked) {
+      this._likeButton.classList.add("card__like-button_active");
+    } else {
+      this._likeButton.classList.remove("card__like-button_active");
+    }
   }
+
+  // handleLikeIcon() {
+  //   this._isLiked = !this._isLiked;
+  //   this._likeButton.classList.toggle("card__like-button_active");
+  // }
 
   handleDeleteCard() {
     this._cardElement.remove();
