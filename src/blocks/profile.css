@@ -68,6 +68,10 @@
   max-width: 380px;
 }
 
+.profile__avatar {
+  position: relative;
+}
+
 .profile__image {
   width: 120px;
   height: 120px;
@@ -75,6 +79,29 @@
   object-fit: cover;
   background-position: center;
   margin-right: 24px;
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.profile__image:hover {
+  opacity: 0.4;
+}
+
+.profile__image-edit-button {
+  background-image: url(../images/avatar-edit.svg);
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+  z-index: 1;
+  border: 2px solid #ffffff;
+}
+
+.profile__image-edit-button:hover {
+  visibility: visible;
 }
 
 @media screen and (max-width: 919px) {

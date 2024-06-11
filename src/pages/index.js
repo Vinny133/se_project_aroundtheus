@@ -63,6 +63,9 @@ const profileEditModal = new PopupWithForm(
 );
 profileEditModal.setEventListeners();
 
+const avatarModal = new PopupWithForm("#avatar-modal", handleAvatarSubmit);
+avatarModal.setEventListeners();
+
 const deleteModal = new PopupDelete("#delete-modal");
 deleteModal.setEventListeners();
 
@@ -97,6 +100,11 @@ function handleProfileEditSubmit(inputValues) {
   });
   profileEditModal.close();
   profileEditValidator.disableButton();
+}
+
+function handleAvatarSubmit(inputValues) {
+  console.log(inputValues);
+  api.updateAvatar(inputValues);
 }
 
 function handleAddCardSubmit(inputValues) {
