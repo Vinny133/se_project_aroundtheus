@@ -172,7 +172,6 @@ function createCard(data) {
     handleDeleteCardClick,
     handleLikeClick
   ).getView();
-  console.log(data);
   return card;
 }
 

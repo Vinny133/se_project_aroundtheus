@@ -79,6 +79,7 @@ class Card {
     this._cardImage.alt = this._name;
 
     this._setEventListeners();
+    this.renderLikes();
 
     return this._cardElement;
   }
