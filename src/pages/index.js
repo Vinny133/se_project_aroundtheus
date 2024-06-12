@@ -8,8 +8,10 @@ import Api from "../components/Api.js";
 import {
   cardListEl,
   profileEditBtn,
+  editSubmitButton,
   profileEditForm,
   addCardForm,
+  addCardButton,
   addNewCardButton,
   profileTitle,
   profileDescription,
@@ -19,6 +21,7 @@ import {
   confirmDeleteBtn,
   avatarButton,
   avatarForm,
+  avatarPopupButton,
 } from "../utils/constants.js";
 import "./index.css";
 import PopupDelete from "../components/PopupDelete.js";
@@ -43,16 +46,6 @@ api.getInitialCards().then((cards) => {
   section.renderItems();
 });
 
-// fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
-//   headers: {
-//     authorization: "8d021ea1-224c-4669-baf6-53caf4d7734b",
-//   },
-// })
-//   .then((res) => res.json())
-//   .then((res) => {
-//     console.log(res);
-//   });
-
 const previewImageModal = new PopupWithImage("#preview-image-modal");
 previewImageModal.setEventListeners();
 
@@ -71,16 +64,6 @@ avatarModal.setEventListeners();
 const deleteModal = new PopupDelete("#delete-modal");
 deleteModal.setEventListeners();
 
-// const section = new Section(
-//   {
-//     items: initialCards,
-//     renderer: renderCard,
-//   },
-//   ".cards__list"
-// );
-
-// section.renderItems();
-
 const userInfo = new UserInfo(
   ".profile__title",
   ".profile__description",
@@ -88,6 +71,7 @@ const userInfo = new UserInfo(
 );
 
 api.getUserInfo().then((userData) => {
+  userInfo.setAvatar(userData);
   userInfo.setUserInfo({
     name: userData.name,
     about: userData.about,
@@ -96,29 +80,55 @@ api.getUserInfo().then((userData) => {
 
 // Functions
 
+function renderLoading(isLoading, button) {
+  if (isLoading) {
+    button.textContent = "Saving...";
+  } else {
+    button.textContent = "Save";
+  }
+}
+
 // Event Handlers
 
 function handleProfileEditSubmit(inputValues) {
   console.log(inputValues);
-  api.updateUserInfo(inputValues).then((res) => {
-    userInfo.setUserInfo(res);
-  });
+  renderLoading(true, editSubmitButton);
+  api
+    .updateUserInfo(inputValues)
+    .then((res) => {
+      userInfo.setUserInfo(res);
+    })
+    .finally(() => {
+      renderLoading(false, editSubmitButton);
+    });
   profileEditModal.close();
   profileEditValidator.disableButton();
 }
 
 function handleAvatarSubmit(inputValues) {
   console.log(inputValues);
-  api.updateAvatar(inputValues).then((res) => {
-    userInfo.setAvatar(res);
-    avatarModal.close();
-  });
+  renderLoading(true, avatarPopupButton);
+  api
+    .updateAvatar(inputValues)
+    .then((res) => {
+      userInfo.setAvatar(res);
+      avatarModal.close();
+    })
+    .finally(() => {
+      renderLoading(false, avatarPopupButton);
+    });
 }
 
 function handleAddCardSubmit(inputValues) {
-  api.createCard(inputValues).then((res) => {
-    renderCard(res);
-  });
+  renderLoading(true, addCardButton);
+  api
+    .createCard(inputValues)
+    .then((res) => {
+      renderCard(res);
+    })
+    .finally(() => {
+      renderLoading(false, addCardButton);
+    });
   console.log(inputValues);
   addCardModal.close();
   addCardValidator.disableButton();
