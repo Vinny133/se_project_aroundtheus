@@ -68,6 +68,10 @@ export const addCardButton = addCardModal.querySelector("#add-modal-button");
 
 export const confirmDeleteBtn = document.querySelector(".modal__delete-button");
 
+export const avatarForm = document.querySelector("#avatar-form");
+
+export const avatarButton = document.querySelector("#avatar-edit-button");
+
 export const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",

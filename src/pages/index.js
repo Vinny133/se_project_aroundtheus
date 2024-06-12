@@ -17,6 +17,8 @@ import {
   profileDescriptionInput,
   config,
   confirmDeleteBtn,
+  avatarButton,
+  avatarForm,
 } from "../utils/constants.js";
 import "./index.css";
 import PopupDelete from "../components/PopupDelete.js";
@@ -79,7 +81,11 @@ deleteModal.setEventListeners();
 
 // section.renderItems();
 
-const userInfo = new UserInfo(".profile__title", ".profile__description");
+const userInfo = new UserInfo(
+  ".profile__title",
+  ".profile__description",
+  ".profile__image"
+);
 
 api.getUserInfo().then((userData) => {
   userInfo.setUserInfo({
@@ -94,7 +100,6 @@ api.getUserInfo().then((userData) => {
 
 function handleProfileEditSubmit(inputValues) {
   console.log(inputValues);
-  // userInfo.setUserInfo(inputValues);
   api.updateUserInfo(inputValues).then((res) => {
     userInfo.setUserInfo(res);
   });
@@ -104,7 +109,10 @@ function handleProfileEditSubmit(inputValues) {
 
 function handleAvatarSubmit(inputValues) {
   console.log(inputValues);
-  api.updateAvatar(inputValues);
+  api.updateAvatar(inputValues).then((res) => {
+    userInfo.setAvatar(res);
+    avatarModal.close();
+  });
 }
 
 function handleAddCardSubmit(inputValues) {
@@ -169,6 +177,10 @@ profileEditBtn.addEventListener("click", () => {
   profileEditModal.open();
 });
 
+avatarButton.addEventListener("click", () => {
+  avatarModal.open();
+});
+
 // Add New Card Button
 addNewCardButton.addEventListener("click", () => addCardModal.open());
 
@@ -207,6 +219,8 @@ function renderCard(cardData) {
 
 const profileEditValidator = new FormValidator(config, profileEditForm);
 const addCardValidator = new FormValidator(config, addCardForm);
+const avatarValidator = new FormValidator(config, avatarForm);
 
 profileEditValidator.enableValidation();
 addCardValidator.enableValidation();
+avatarValidator.enableValidation();
