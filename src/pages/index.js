@@ -138,18 +138,22 @@ function handleImageClick(cardData) {
   previewImageModal.open(cardData);
 }
 
+let cardToDelete;
+
 function handleDeleteCardClick(card) {
   console.log("Card to delete:", card);
   deleteModal.open();
-  function handleConfirmDelete() {
-    console.log("Card ID:", card._id);
-    api.deleteCard(card._id).then(() => {
-      card.handleDeleteCard();
-      deleteModal.close();
-      confirmDeleteBtn.removeEventListener("click", handleConfirmDelete);
-    });
-  }
+  cardToDelete = card;
   confirmDeleteBtn.addEventListener("click", handleConfirmDelete);
+}
+
+function handleConfirmDelete() {
+  console.log("Card ID:", cardToDelete._id);
+  api.deleteCard(cardToDelete._id).then(() => {
+    cardToDelete.handleDeleteCard();
+    deleteModal.close();
+    confirmDeleteBtn.removeEventListener("click", handleConfirmDelete);
+  });
 }
 
 function handleLikeClick(card) {
