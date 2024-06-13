@@ -32,19 +32,27 @@ let section;
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  authToken: "8d021ea1-224c-4669-baf6-53caf4d7734b",
+  headers: {
+    authToken: "83383a9f-8b6f-44ef-86cf-3551dcd43118",
+    "Content-Type": "application/json",
+  },
 });
 
-api.getInitialCards().then((cards) => {
-  section = new Section(
-    {
-      items: cards,
-      renderer: renderCard,
-    },
-    ".cards__list"
-  );
-  section.renderItems();
-});
+api
+  .getInitialCards()
+  .then((cards) => {
+    section = new Section(
+      {
+        items: cards,
+        renderer: renderCard,
+      },
+      ".cards__list"
+    );
+    section.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const previewImageModal = new PopupWithImage("#preview-image-modal");
 previewImageModal.setEventListeners();
@@ -70,13 +78,18 @@ const userInfo = new UserInfo(
   ".profile__image"
 );
 
-api.getUserInfo().then((userData) => {
-  userInfo.setAvatar(userData);
-  userInfo.setUserInfo({
-    name: userData.name,
-    about: userData.about,
+api
+  .getUserInfo()
+  .then((userData) => {
+    userInfo.setAvatar(userData);
+    userInfo.setUserInfo({
+      name: userData.name,
+      about: userData.about,
+    });
+  })
+  .catch((err) => {
+    console.log(err);
   });
-});
 
 // Functions
 
@@ -97,6 +110,10 @@ function handleProfileEditSubmit(inputValues) {
     .updateUserInfo(inputValues)
     .then((res) => {
       userInfo.setUserInfo(res);
+      profileEditForm.reset();
+    })
+    .catch((err) => {
+      console.log(err);
     })
     .finally(() => {
       renderLoading(false, editSubmitButton);
@@ -113,6 +130,10 @@ function handleAvatarSubmit(inputValues) {
     .then((res) => {
       userInfo.setAvatar(res);
       avatarModal.close();
+      avatarForm.reset();
+    })
+    .catch((err) => {
+      console.log(err);
     })
     .finally(() => {
       renderLoading(false, avatarPopupButton);
@@ -125,6 +146,10 @@ function handleAddCardSubmit(inputValues) {
     .createCard(inputValues)
     .then((res) => {
       renderCard(res);
+      addCardForm.reset();
+    })
+    .catch((err) => {
+      console.log(err);
     })
     .finally(() => {
       renderLoading(false, addCardButton);
@@ -149,11 +174,16 @@ function handleDeleteCardClick(card) {
 
 function handleConfirmDelete() {
   console.log("Card ID:", cardToDelete._id);
-  api.deleteCard(cardToDelete._id).then(() => {
-    cardToDelete.handleDeleteCard();
-    deleteModal.close();
-    confirmDeleteBtn.removeEventListener("click", handleConfirmDelete);
-  });
+  api
+    .deleteCard(cardToDelete._id)
+    .then(() => {
+      cardToDelete.handleDeleteCard();
+      deleteModal.close();
+      confirmDeleteBtn.removeEventListener("click", handleConfirmDelete);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 function handleLikeClick(card) {
