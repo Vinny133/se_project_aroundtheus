@@ -33,7 +33,7 @@ let section;
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authToken: "83383a9f-8b6f-44ef-86cf-3551dcd43118",
+    authorization: "83383a9f-8b6f-44ef-86cf-3551dcd43118",
     "Content-Type": "application/json",
   },
 });
@@ -69,7 +69,9 @@ profileEditModal.setEventListeners();
 const avatarModal = new PopupWithForm("#avatar-modal", handleAvatarSubmit);
 avatarModal.setEventListeners();
 
-const deleteModal = new PopupDelete("#delete-modal");
+let cardToDelete;
+
+const deleteModal = new PopupDelete("#delete-modal", handleConfirmDelete);
 deleteModal.setEventListeners();
 
 const userInfo = new UserInfo(
@@ -110,7 +112,9 @@ function handleProfileEditSubmit(inputValues) {
     .updateUserInfo(inputValues)
     .then((res) => {
       userInfo.setUserInfo(res);
+      profileEditModal.close();
       profileEditForm.reset();
+      profileEditValidator.disableButton();
     })
     .catch((err) => {
       console.log(err);
@@ -118,8 +122,6 @@ function handleProfileEditSubmit(inputValues) {
     .finally(() => {
       renderLoading(false, editSubmitButton);
     });
-  profileEditModal.close();
-  profileEditValidator.disableButton();
 }
 
 function handleAvatarSubmit(inputValues) {
@@ -146,7 +148,9 @@ function handleAddCardSubmit(inputValues) {
     .createCard(inputValues)
     .then((res) => {
       renderCard(res);
+      addCardModal.close();
       addCardForm.reset();
+      addCardValidator.disableButton();
     })
     .catch((err) => {
       console.log(err);
@@ -155,31 +159,26 @@ function handleAddCardSubmit(inputValues) {
       renderLoading(false, addCardButton);
     });
   console.log(inputValues);
-  addCardModal.close();
-  addCardValidator.disableButton();
 }
 
 function handleImageClick(cardData) {
   previewImageModal.open(cardData);
 }
 
-let cardToDelete;
-
 function handleDeleteCardClick(card) {
   console.log("Card to delete:", card);
   deleteModal.open();
   cardToDelete = card;
-  confirmDeleteBtn.addEventListener("click", handleConfirmDelete);
 }
 
 function handleConfirmDelete() {
-  console.log("Card ID:", cardToDelete._id);
+  // console.log("Card ID:", cardToDelete._id);
   api
     .deleteCard(cardToDelete._id)
     .then(() => {
       cardToDelete.handleDeleteCard();
       deleteModal.close();
-      confirmDeleteBtn.removeEventListener("click", handleConfirmDelete);
+      // confirmDeleteBtn.removeEventListener("click", handleConfirmDelete);
     })
     .catch((err) => {
       console.log(err);
