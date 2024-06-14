@@ -95,19 +95,19 @@ api
 
 // Functions
 
-function renderLoading(isLoading, button) {
-  if (isLoading) {
-    button.textContent = "Saving...";
-  } else {
-    button.textContent = "Save";
-  }
-}
+// function renderLoading(isLoading, button) {
+//   if (isLoading) {
+//     button.textContent = "Saving...";
+//   } else {
+//     button.textContent = "Save";
+//   }
+// }
 
 // Event Handlers
 
 function handleProfileEditSubmit(inputValues) {
   console.log(inputValues);
-  renderLoading(true, editSubmitButton);
+  profileEditModal.renderLoading(true);
   api
     .updateUserInfo(inputValues)
     .then((res) => {
@@ -120,13 +120,13 @@ function handleProfileEditSubmit(inputValues) {
       console.log(err);
     })
     .finally(() => {
-      renderLoading(false, editSubmitButton);
+      profileEditModal.renderLoading(false);
     });
 }
 
 function handleAvatarSubmit(inputValues) {
   console.log(inputValues);
-  renderLoading(true, avatarPopupButton);
+  avatarModal.renderLoading(true);
   api
     .updateAvatar(inputValues)
     .then((res) => {
@@ -138,12 +138,12 @@ function handleAvatarSubmit(inputValues) {
       console.log(err);
     })
     .finally(() => {
-      renderLoading(false, avatarPopupButton);
+      avatarModal.renderLoading(false);
     });
 }
 
 function handleAddCardSubmit(inputValues) {
-  renderLoading(true, addCardButton);
+  addCardModal.renderLoading(true);
   api
     .createCard(inputValues)
     .then((res) => {
@@ -156,7 +156,7 @@ function handleAddCardSubmit(inputValues) {
       console.log(err);
     })
     .finally(() => {
-      renderLoading(false, addCardButton);
+      addCardModal.renderLoading(false);
     });
   console.log(inputValues);
 }
@@ -173,16 +173,18 @@ function handleDeleteCardClick(card) {
 
 function handleConfirmDelete() {
   // console.log("Card ID:", cardToDelete._id);
-  api
-    .deleteCard(cardToDelete._id)
-    .then(() => {
-      cardToDelete.handleDeleteCard();
-      deleteModal.close();
-      // confirmDeleteBtn.removeEventListener("click", handleConfirmDelete);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  if (cardToDelete) {
+    api
+      .deleteCard(cardToDelete._id)
+      .then(() => {
+        cardToDelete.handleDeleteCard();
+        deleteModal.close();
+        // confirmDeleteBtn.removeEventListener("click", handleConfirmDelete);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }
 
 function handleLikeClick(card) {
